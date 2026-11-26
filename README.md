@@ -2,7 +2,7 @@
 
 # 🎮 Respawn
 
-**AD unlocks and password resets from the help desk — without the clicking around.**
+**AD unlocks and password resets from the help desk without the clicking around.**
 
 [![Respawn](https://img.shields.io/badge/Respawn-v1.8-ff2a3c)](https://github.com/elegantgame/respawn)
 [![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-5391FE)](https://learn.microsoft.com/en-us/powershell/)
@@ -10,7 +10,7 @@
 [![Mode](https://img.shields.io/badge/Mode-Dry--Run%20by%20Default-ffd166)](https://github.com/elegantgame/respawn)
 [![License](https://img.shields.io/badge/License-MIT-3ddc84)](LICENSE)
 
-*Look a user up by EID, and Respawn figures out the fix, grabs a fresh passphrase, and logs everything — in under a minute.*
+*Look a user up by EID, and Respawn figures out the fix, grabs a fresh passphrase, and logs everything in under a minute.*
 
 </div>
 
