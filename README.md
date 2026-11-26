@@ -1,15 +1,60 @@
-# Respawn
+<div align="center">
 
-A PowerShell helper for the help desk — unlocks accounts and resets passwords for users in Active Directory, from inside the VDI. Built to cut the AD portion of a password-reset ticket from about 4 minutes to under a minute.
+# 🎮 Respawn
+
+**AD unlocks and password resets from the help desk — without the clicking around.**
+
+[![Respawn](https://img.shields.io/badge/Respawn-v1.8-ff2a3c)](https://github.com/elegantgame/respawn)
+[![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-5391FE)](https://learn.microsoft.com/en-us/powershell/)
+[![Platform](https://img.shields.io/badge/Platform-Windows-0078D6)](https://github.com/elegantgame/respawn)
+[![Mode](https://img.shields.io/badge/Mode-Dry--Run%20by%20Default-ffd166)](https://github.com/elegantgame/respawn)
+[![License](https://img.shields.io/badge/License-MIT-3ddc84)](LICENSE)
+
+*Look a user up by EID, and Respawn figures out the fix, grabs a fresh passphrase, and logs everything — in under a minute.*
+
+</div>
+
+---
 
 ## What it does
 
-- Looks up a user by EID in Active Directory (your AD domain)
-- **Auto-detects the fix**: locked account → Unlock AD, not locked → Reset AD (press Enter to accept, or type 1 / 2 / 3 to override)
-- **Auto-fetches a passphrase** from your passphrase generator and picks one at random — no more copy-pasting from the generator page
-- Expires the password on reset, so the user must create their own at next login
-- **Logs every run** to `ADTool-Log.csv` (who, when, EID, user, action, result) — the passphrase is never logged
-- **Dry run by default** — nothing changes in AD unless you run it with `-Live`
+| | |
+| --- | --- |
+| 🔍 **Lookup** | Finds the user by EID in Active Directory (your AD domain) |
+| 🤖 **Auto-detect** | Locked account → Unlock AD, not locked → Reset AD (Enter to accept, or type 1 / 2 / 3 to override) |
+| 🔑 **Auto-fetch** | Pulls a passphrase from your passphrase generator and picks one at random — no more copy-pasting |
+| ⏳ **Expire** | Resets expire the password, so the user creates their own at next login |
+| 📋 **Audit log** | Every run lands in `ADTool-Log.csv` (who, when, EID, user, action, result) — the passphrase is never logged |
+| 🛡️ **Dry run** | Nothing changes in AD unless you run it with `-Live` |
+
+## Demo
+
+```
+PS C:\Users\1071650\Desktop> .\Respawn.ps1 -EID 1000001
+
+===== DRY RUN MODE - nothing will change in AD =====
+Add -Live to actually unlock / reset.
+Respawn v1.8
+
+Looking up EID 1000001 in domain YOUR-DOMAIN ...
+Found 1 matching account.
+
+----- AD Info -----
+User:               Doe, Jane (1000001)
+UPN:                1000001@your-domain.example
+Account:            Enabled
+Locked out:         YES
+Password last set:  11/11/2026
+-------------------
+
+Detected: this account is LOCKED - the fix is Unlock AD.
+
+DRY RUN - here is what WOULD happen:
+  - Unlock the account
+[DRY RUN] Would run: Unlock-ADAccount 1000001
+
+Done. Log written to: C:\Users\1071650\Desktop\ADTool-Log.csv
+```
 
 ## Safety rules (hard-coded)
 
@@ -27,8 +72,9 @@ A PowerShell helper for the help desk — unlocks accounts and resets passwords 
 | `Respawn-LIVE.bat` | Double-click launcher — live run |
 | `Test-ServiceNowAPI.ps1` | Read-only test: can your login reach the ServiceNow API? (parked) |
 | `TEST-GUIDE.md` | How to test it |
+| `LICENSE` | MIT License |
 
-## How to use it
+## Quick start
 
 Requirements: run inside the VDI (same place the AD Tool runs), ActiveDirectory PowerShell module (RSAT) installed, and AD rights to unlock accounts / reset passwords in your AD domain.
 
